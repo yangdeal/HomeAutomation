@@ -1,16 +1,23 @@
 #! /bin/bash
 
-# back and front folders, after 15 days:
+# This is used to clean the back and front camera files based on below policies to save disk space
+# back and front folders:
 #   1. delete night files defined by from and to
 #   2. leave random 10 files each day
+
+# use: change CAMFOLDERROOT before run the script
+
+## Parameters starts here
+CAMFOLDERROOT="/mnt/dsm/97-motion-short-term/2015"
 
 BACKFOLDER="Back"
 FRONTFOLDER="Front"
 LIVINGROOMFOLDER="LivingRoom"
 
+KEEPFILES="11"
+# LIVINGROOMKEEPFILES="101"
 
-CAMFOLDERROOT="/mnt/dsm/97-motion-short-term/2015"
-
+## code starts here, do not modify
 CURRENTPWD=`pwd`
 
 ## the files created between from and to will be deleted. This apply to all folders
@@ -40,7 +47,7 @@ for CAMFOLDER in ${BACKFOLDER} ${FRONTFOLDER} ; do
         done
 
         # keep rand
-        FILES=(`find . -type f | grep mp4 | grep -v TimeLapse | sort -R | tail -n +11`)
+        FILES=(`find . -type f | grep mp4 | grep -v TimeLapse | sort -R | tail -n +${KEEPFILES}`)
         for file in "${FILES[@]}" ; do
             echo "  -----File will be deleted: ${file}"
             rm ${file}
