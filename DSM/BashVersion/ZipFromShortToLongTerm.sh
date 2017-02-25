@@ -9,9 +9,11 @@
 
 ## Parameters starts here
 MOUNTPOINT="/mnt/dsm"
-SHORTTERMROOT="${MOUNTPOINT}/97-motion-short-term"
-# LONGTERMROOT="${MOUNTPOINT}98-motion-long-term"
-LONGTERMROOT="${MOUNTPOINT}/a/test"
+SHORTTERMFOLDER="97-motion-short-term"
+SHORTTERMROOT="${MOUNTPOINT}/${SHORTTERMFOLDER}"
+LONGTERMROOT="${MOUNTPOINT}/98-motion-long-term"
+# LONGTERMROOT="${MOUNTPOINT}/a/test"
+RECYCLEBIN="${MOUNTPOINT}/#recycle"
 
 DAYSAFTER="7"
 
@@ -29,9 +31,15 @@ for FOLDER in "${FOLDERS[@]}"; do
     SUBFOLDER3=`echo ${FOLDER} | cut -d"/" -f 3`
     # SUBFOLDER3 is the last part of the folder name, will generate the zip file with same name
 
+    # goto the folder and zip to avoid folder name included in the zip file
     cd ${SHORTTERMROOT}/${SUBFOLDER12}
-    mkdir -p ${LONGTERMROOT}/${SUBFOLDER12}; zip -r ${LONGTERMROOT}/${SUBFOLDER12}/${SUBFOLDER3}.zip ${SUBFOLDER3}
-    echo "Not run: rm -rf ${SUBFOLDER3}"
+    mkdir -p ${LONGTERMROOT}/${SUBFOLDER12}
+    zip -r ${LONGTERMROOT}/${SUBFOLDER12}/${SUBFOLDER3}.zip ${SUBFOLDER3}
+
+    # move the short term folder to recycle bin in DSM. It will keep few days (7 days current setting) before final remove by DSM policy
+    echo "Moving ${SHORTTERMROOT}/${SUBFOLDER12}/${SUBFOLDER3} to recycle bin"
+    mkdir -p ${RECYCLEBIN}/${SHORTTERMFOLDER}/${SUBFOLDER12}
+    mv ${SHORTTERMROOT}/${SUBFOLDER12}/${SUBFOLDER3} ${RECYCLEBIN}/${SHORTTERMFOLDER}/${SUBFOLDER12}
     # read -p "$*"
 done
 

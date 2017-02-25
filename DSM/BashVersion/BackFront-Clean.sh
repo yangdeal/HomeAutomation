@@ -46,8 +46,8 @@ for CAMFOLDER in ${BACKFOLDER} ${FRONTFOLDER} ; do
             fi
         done
 
-        # keep rand
-        FILES=(`find . -type f | grep mp4 | grep -v TimeLapse | sort -R | tail -n +${KEEPFILES}`)
+        # keep random
+        FILES=(`find . -type f | grep mp4 | grep -v TimeLapse | grep -v keep | sort -R | tail -n +${KEEPFILES}`)
         for file in "${FILES[@]}" ; do
             echo "  -----File will be deleted: ${file}"
             rm ${file}
