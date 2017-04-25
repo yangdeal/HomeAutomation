@@ -20,7 +20,7 @@ else
     echo lost connection, restarting mpc
 fi
 
-A=`mpc current | grep 3CW | wc -l`
+A=0
 i=5
 while [ $A -eq 0 ]
 do
