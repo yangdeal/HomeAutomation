@@ -1,4 +1,7 @@
 #!/bin/bash
+# with cront file: /etc/cron.d/cloudflare_update
+# * * * * * root /etc/ydeal/cloudflare_update.sh >> /var/log/cloudflare/cloudflare_crone.log 2>&1
+
 set -x
 # CHANGE THESE
 auth_email="ydeal@msn.com"
@@ -8,9 +11,10 @@ record_name="home.aaa.com"
 
 # MAYBE CHANGE THESE
 ip=$(curl -s http://ipv4.icanhazip.com)
-ip_file="/var/log/cloudflare.ip.txt"
-id_file="/var/log/cloudflare.ids"
-log_file="/var/log/cloudflare.log"
+ip_file="/var/log/cloudflare/ip.txt"
+id_file="/var/log/cloudflare/cloudflare.ids"
+log_file="/var/log/cloudflare/cloudflare.log"
+
 
 # LOGGER
 log() {
