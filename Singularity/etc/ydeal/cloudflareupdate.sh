@@ -4,7 +4,7 @@
 
 set -x
 # CHANGE THESE
-auth_email="ydeal@msn.com"
+auth_email="YOUREMAIL"
 auth_key="TBC" # found in cloudflare account settings
 zone_name="aaa.com"
 record_name="home.aaa.com"
